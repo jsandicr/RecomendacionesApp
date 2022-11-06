@@ -1,0 +1,32 @@
+<div class="mt-3">
+    <div class="d-flex flex-column align-items-center">
+        <h1 style="color: #1DB954" class="text-center">Spotify Recomendaciones</h1>
+        <div class="row mt-2">
+            <app-buscador></app-buscador>
+        </div>
+        <hr />
+        <div class="row">
+            <ul
+                *ngIf="mostrarSugerencias"
+                class="list-group">
+                <li
+                    *ngFor="let cancion of cancionesSugeridas"
+                    class="list-group-item list-group-item-action">
+                    {{ cancion.name }}
+                </li>
+                <li
+                    *ngIf="canciones.length === 0"
+                    class="list-group-item list-group-item-action">
+                    <a class="nav-link">
+                        No se encontro nada con el termino {{ termino }}
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    <div *ngFor="let cancion of canciones"
+        class="container mt-4">
+        <app-cancion></app-cancion>
+    </div>
+</div>

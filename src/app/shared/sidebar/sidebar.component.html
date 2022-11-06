@@ -1,0 +1,14 @@
+<div class="border-right p-3" id="sidebar">
+    <h3>
+       Busquedas
+    </h3>
+    <hr style="color: #191414"/>
+    <div class="list-group list-reset">
+      <a
+        href="#"
+        *ngFor="let elemento of historial"
+        class="list-group-item list-group-item-action"
+        (click)="buscar(elemento)">
+      </a>
+    </div>
+</div>
