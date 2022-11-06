@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+interface MenuItem{
+  nombre: string;
+  ruta: string;
+}
 
 @Component({
   selector: 'app-sidebar',
@@ -9,22 +14,40 @@ import { Component, OnInit } from '@angular/core';
       height: 100%;
       min-height: 100vh;
       min-width: 180px;
-      background-color: #1DB954;
+      background-color: #E26868;
+    }
+
+    li{
+      cursor: pointer;
+    }
+
+    .activo{
+      background-color: #FF8787;
+      color: #EDEDED;
+      border: 1px solid #EDEDED;
     }
     `
   ]
 })
-export class SidebarComponent implements OnInit {
 
-  historial: string[] = [];
+export class SidebarComponent{
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  buscar(element: string){
-
-  }
-
+  items: MenuItem[] = [
+    {
+      nombre: 'home',
+      ruta: 'home/home'
+    },
+    {
+      nombre: 'canciones',
+      ruta: 'canciones'
+    },
+    {
+      nombre: 'cantantes',
+      ruta: 'cantantes'
+    },
+    {
+      nombre: 'generos',
+      ruta: 'generos'
+    }
+  ];
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CancionesServices } from 'src/app/services/canciones.service';
 import { Cancion } from '../../../interfaces/cancion.interface';
-import { CancionesServices } from '../../services/canciones.service';
 
 @Component({
   selector: 'app-canciones',

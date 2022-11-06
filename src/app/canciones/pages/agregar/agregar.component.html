@@ -1,0 +1,113 @@
+<h2 *ngIf="validarTitulo() else modificar;"
+    class="text-center mt-2">Agregar Cancion</h2>
+<hr>
+<ng-template #modificar>
+    <h2 class="text-center mt-2"> Modificar Cancion</h2>
+</ng-template>
+<div class="m-5">
+    <form autocomplete="off"
+        [formGroup]="formulario"
+        (ngSubmit)="guardar()">
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+            <input class="form-control"
+                    placeholder="Ingrese el nombre"
+                    formControlName="nombre">
+            <span class="form-text text-danger"
+                    *ngIf="validarCampo('nombre')">Este campo es obligatorio</span>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Spotify ID</label>
+        <div class="col-sm-9">
+            <input class="form-control"
+                    placeholder="Ingrese el id"
+                    formControlName="spotifyId">
+            <span class="form-text text-danger"
+                    *ngIf="validarCampo('nombre')">Este campo es obligatorio</span>
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-3" *ngIf="generosArr">
+        <label class="col-sm-3 form-label">Agregar Genero</label>
+        <div class="col-sm-9" formArrayName="generos">
+            <div class="input-group">
+                <select class="form-control"
+                    [formControl]="nuevoGenero">
+                    <option value="">-- Seleccione Genero:</option>
+                    <option *ngFor="let genero of generosList"
+                            [value]="genero">
+                        {{ genero }}
+                    </option>
+                </select>
+                <button class="btn btn-outline-primary"
+                    type="button"
+                    (click)="agregarGenero()">Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="generosArr.length > 0"
+         class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Generos</label>
+        <div class="col-sm-9" formArrayName="generos">
+            <div class="input-group mb-1"
+                *ngFor="let genero of generosArr.controls; let i = index;">
+                <input class="form-control"
+                        [formControlName]="i">
+                <button class="btn btn-outline-danger"
+                        type="button"
+                        (click)="borrarGenero(i)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-3" *ngIf="cantantesArr">
+        <label class="col-sm-3 form-label">Agregar Cantante</label>
+        <div class="col-sm-9" formArrayName="cantantes">
+            <div class="input-group">
+                <select class="form-control"
+                    [formControl]="nuevoCantante">
+                    <option value="">-- Seleccione Cantante:</option>
+                    <option *ngFor="let cantante of cantantesList"
+                            [value]="cantante">
+                        {{ cantante }}
+                    </option>
+                </select>
+                <button class="btn btn-outline-primary"
+                    type="button"
+                    (click)="agregarCantante()">Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="cantantesArr.length > 0"
+         class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Cantantes</label>
+        <div class="col-sm-9" formArrayName="cantantes">
+            <div class="input-group mb-1"
+                *ngFor="let cantante of cantantesArr.controls; let i = index;">
+                <input class="form-control"
+                        [formControlName]="i">
+                <button class="btn btn-outline-danger"
+                        type="button"
+                        (click)="borrarCantante(i)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-sm-12">
+            <div class="input-group d-flex justify-content-end">
+                <button type="submit"
+                    class="btn btn-primary">
+                    Guardar
+                </button>
+                <a routerLink="..canciones/ver" class="btn btn-danger">Regresar</a>
+            </div>
+        </div>
+    </div>
+</form>
+</div>

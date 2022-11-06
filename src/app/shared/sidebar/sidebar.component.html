@@ -1,14 +1,15 @@
 <div class="border-right p-3" id="sidebar">
-    <h3>
-       Busquedas
+    <h3 style="color: #EDEDED;">
+       Music
     </h3>
-    <hr style="color: #191414"/>
-    <div class="list-group list-reset">
-      <a
-        href="#"
-        *ngFor="let elemento of historial"
-        class="list-group-item list-group-item-action"
-        (click)="buscar(elemento)">
-      </a>
-    </div>
+    <hr style="color: #EDEDED"/>
+    <ul class="list-group">
+      <li
+        *ngFor="let item of items"
+        class="list-group-item"
+        [routerLink]="item.ruta"
+        routerLinkActive="activo">
+        {{ item.nombre }}
+      </li>
+    </ul>
 </div>
