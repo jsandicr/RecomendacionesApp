@@ -1,7 +1,12 @@
-<div class="card mt-2">
-    <div class="card-body">
-      <h5 class="card-title">{{ cancion.name }}</h5>
-      <p class="card-text">{{ cancion.singers }}</p>
-      <a href="#" class="btn" style="background-color: #1DB954 ; color: white;">Escuchar en Spotify</a>
+<div class="col">
+    <div class="card w-100" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title mb-1"> {{ cancion.name }} | {{ cancion.genre }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted mb-3">{{ cancion.singers }} </h6>
+            <span class="mt-5">
+              <a href="#" class="btn btn-danger">Youtube</a>
+              <a href="#" class="btn btn-success ms-2">Spotify</a>
+            </span>
+          </div>
     </div>
-  </div>
+</div>

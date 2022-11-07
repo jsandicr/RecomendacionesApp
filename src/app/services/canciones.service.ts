@@ -8,7 +8,7 @@ import { Cancion } from '../interfaces/cancion.interface';
 })
 export class CancionesServices {
 
-  private _baseUrl: string = "http://localhost:3000/canciones";
+  private _baseUrl: string = "http://localhost:3000";
   private _canciones: Cancion[] = [];
 
   constructor( private http: HttpClient) { }
@@ -18,16 +18,16 @@ export class CancionesServices {
   }
 
   getCanciones(){
-    return this.http.get<Cancion[]>(`${this._baseUrl}`)
+    return this.http.get<Cancion[]>(`${this._baseUrl}/canciones`)
   }
 
-  buscarCancion( id: number ):Observable<Cancion>{
-    return this.http.get<Cancion>(`${this._baseUrl}/${id}`)
+  buscarCancion( id: number ): Observable<Cancion>{
+    return this.http.get<Cancion>(`${this._baseUrl}/canciones/${id}`)
   }
 
-  sugerenciaCancion( termino: string ):Observable<Cancion[]>{
+  sugerenciasCancion( termino: string ):Observable<Cancion[]>{
       //Solamente retorna id y nombre
-      return this.http.get<Cancion[]>(`${this._baseUrl}/termino/${termino}`)
+      return this.http.get<Cancion[]>(`${this._baseUrl}/buscar/${termino}`)
   }
 
   deleteCancion( id: string ): Observable<any>{

@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Cancion } from '../../../interfaces/cancion.interface';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-buscador',
@@ -9,20 +9,32 @@ import { Cancion } from '../../../interfaces/cancion.interface';
 })
 export class BuscadorComponent implements OnInit {
 
-  termino: string = "";
+  termino:string = "";
 
-  @ViewChild('txtBuscar') txtBuscar!:ElementRef<HTMLInputElement>;
+  @Output() onEnter   : EventEmitter<string> = new EventEmitter();
+  @Output() onDebounce: EventEmitter<string> = new EventEmitter();
 
-  constructor() { }
+  debouncer: Subject<string> = new Subject();
 
   ngOnInit(): void {
+    this.debouncer
+      .pipe(debounceTime(300))
+      .subscribe( valor => {
+        this.onDebounce.emit(valor);
+      })
   }
 
   buscar(){
-    const valor = this.txtBuscar.nativeElement.value;
-    if(valor.trim().length == 0){
-      return;
-    }
+    this.onEnter.emit(this.termino);
+  }
+
+  pressKey( ){
+    this.debouncer.next(this.termino);
+    console.log(this.termino);
+  }
+
+  onFocusOut(){
+    
   }
 
 }
