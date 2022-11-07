@@ -39,15 +39,15 @@ export class SidebarComponent{
     },
     {
       nombre: 'canciones',
-      ruta: 'canciones'
+      ruta: 'canciones/ver'
     },
     {
       nombre: 'cantantes',
-      ruta: 'cantantes'
+      ruta: 'cantantes/ver'
     },
     {
       nombre: 'generos',
-      ruta: 'generos'
+      ruta: 'generos/ver'
     }
   ];
 }

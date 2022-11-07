@@ -1,0 +1,33 @@
+<h2 *ngIf="validarTitulo() else modificar;"
+    class="text-center mt-2">Agregar Cantante</h2>
+<hr>
+<ng-template #modificar>
+    <h2 class="text-center mt-2"> Modificar Cantante</h2>
+</ng-template>
+<div class="m-5">
+    <form autocomplete="off"
+        [formGroup]="formulario"
+        (ngSubmit)="guardar()">
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+            <input class="form-control"
+                    placeholder="Ingrese el nombre"
+                    formControlName="name">
+            <span class="form-text text-danger"
+                    *ngIf="validarCampo('name')">Este campo es obligatorio</span>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-sm-12">
+            <div class="input-group d-flex justify-content-end">
+                <button type="submit"
+                    class="btn btn-primary">
+                    Guardar
+                </button>
+                <a routerLink="../../ver" class="btn btn-danger">Regresar</a>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
