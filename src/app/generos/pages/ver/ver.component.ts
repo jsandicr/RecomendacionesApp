@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CantantesServices } from '../../../services/cantantes.service';
-import { Cantante } from '../../../interfaces/cantante.interface';
+import { GenerosServices } from '../../../services/generos.service';
+import { Genero } from '../../../interfaces/genero.interface';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,17 +10,17 @@ import Swal from 'sweetalert2';
 })
 export class VerComponent implements OnInit {
 
-  cantantes : Cantante[] = [];
+  generos : Genero[] = [];
 
-  constructor( private cantanteService: CantantesServices) { }
+  constructor( private generoService: GenerosServices) { }
 
   ngOnInit(): void {
-    this.cantanteService.getCantantes()
-      .subscribe( cantantes => {
-        cantantes.forEach(cantante => {
-          this.cantantes.push(cantante);
+    this.generoService.getGeneros()
+      .subscribe( generos => {
+        generos.forEach(genero => {
+          this.generos.push(genero);
         });
-        this.cantantes = cantantes
+        this.generos = generos
       });
   }
 
@@ -34,14 +34,14 @@ export class VerComponent implements OnInit {
     })
 
     swalWithBootstrapButtons.fire({  
-      title: '¿Seguro que quiere eliminar el producto?',  
+      title: '¿Seguro que quiere eliminar el genero?',  
       icon: 'warning',  
       showCancelButton: true,  
       confirmButtonText: '¡Si, eliminar!',  
       cancelButtonText: 'Cancelar'  
     }).then((result) => {
       if(result.value) {
-        this.cantanteService.deleteCantante( id )
+        this.generoService.deleteGenero( id )
         .subscribe( respuesta => {
             Swal.fire({
               icon: 'success',
@@ -50,8 +50,8 @@ export class VerComponent implements OnInit {
               timer: 1500
             })
         })
+        this.generos.splice(position, 1)
       }
-      this.cantantes.splice(position, 1)
     })
   }
 }

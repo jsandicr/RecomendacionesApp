@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { GenerosRoutingModule } from './generos-routing.module';
+import { GenerosRoutingModule } from './albums-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { VerComponent } from './pages/ver/ver.component';
 import { AgregarComponent } from './pages/agregar/agregar.component';
@@ -18,4 +18,4 @@ import { AgregarComponent } from './pages/agregar/agregar.component';
     ReactiveFormsModule
   ]
 })
-export class GenerosModule { }
+export class AlbumsModule { }

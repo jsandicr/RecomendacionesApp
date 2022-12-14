@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CantantesServices } from '../../../services/cantantes.service';
-import { Cantante } from '../../../interfaces/cantante.interface';
+import { PlaylistsServices } from '../../../services/playlists.service';
+import { Playlist } from '../../../interfaces/playlist.interface';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,17 +10,17 @@ import Swal from 'sweetalert2';
 })
 export class VerComponent implements OnInit {
 
-  cantantes : Cantante[] = [];
+  playlists : Playlist[] = [];
 
-  constructor( private cantanteService: CantantesServices) { }
+  constructor( private playlistService: PlaylistsServices) { }
 
   ngOnInit(): void {
-    this.cantanteService.getCantantes()
-      .subscribe( cantantes => {
-        cantantes.forEach(cantante => {
-          this.cantantes.push(cantante);
+    this.playlistService.getPlaylists()
+      .subscribe( playlists => {
+        playlists.forEach(playlist => {
+          this.playlists.push(playlist);
         });
-        this.cantantes = cantantes
+        this.playlists = playlists
       });
   }
 
@@ -34,15 +34,15 @@ export class VerComponent implements OnInit {
     })
 
     swalWithBootstrapButtons.fire({  
-      title: '¿Seguro que quiere eliminar el producto?',  
+      title: '¿Seguro que quiere eliminar la playlist?',  
       icon: 'warning',  
       showCancelButton: true,  
       confirmButtonText: '¡Si, eliminar!',  
       cancelButtonText: 'Cancelar'  
     }).then((result) => {
       if(result.value) {
-        this.cantanteService.deleteCantante( id )
-        .subscribe( respuesta => {
+        this.playlistService.deletePlaylist( id )
+        .subscribe( playlist => {
             Swal.fire({
               icon: 'success',
               title: '¡Eliminado con exito!',
@@ -50,8 +50,9 @@ export class VerComponent implements OnInit {
               timer: 1500
             })
         })
+
       }
-      this.cantantes.splice(position, 1)
     })
+    this.playlists.splice(position, 1)
   }
 }

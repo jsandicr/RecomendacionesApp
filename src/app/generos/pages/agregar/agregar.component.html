@@ -1,8 +1,8 @@
 <h2 *ngIf="validarTitulo() else modificar;"
-    class="text-center mt-2">Agregar Cancion</h2>
+    class="text-center mt-2">Agregar Genero</h2>
 <hr>
 <ng-template #modificar>
-    <h2 class="text-center mt-2"> Modificar Cancion</h2>
+    <h2 class="text-center mt-2"> Modificar Genero</h2>
 </ng-template>
 <div class="m-5">
     <form autocomplete="off"
@@ -18,18 +18,6 @@
                     *ngIf="validarCampo('name')">Este campo es obligatorio</span>
         </div>
     </div>
-
-    <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label">Spotify ID</label>
-        <div class="col-sm-9">
-            <input class="form-control"
-                    placeholder="Ingrese el id"
-                    formControlName="spotifyId">
-            <span class="form-text text-danger"
-                    *ngIf="validarCampo('spotifyId')">Este campo es obligatorio</span>
-        </div>
-    </div>
-
     <div class="row mt-4">
         <div class="col-sm-12">
             <div class="input-group d-flex justify-content-end">

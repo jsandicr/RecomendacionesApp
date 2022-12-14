@@ -17,11 +17,10 @@ export class VerComponent implements OnInit {
 
   canciones: Cancion[] = [
     {
-      id: 1,
-      name: 'Prueba',
-      spotifyId: '',
-      genre: ['prueba'],
-      singers: ['prueba']
+      _id: '',
+      id: 0,
+      name: '',
+      spotifyId: ''
     }
   ]
 
@@ -39,9 +38,7 @@ export class VerComponent implements OnInit {
     })
   }
 
-  borrar( position: number ){
-    let id = this.canciones[position].id
-
+  borrar( id: number, position: number ){
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-danger me-3',
@@ -51,33 +48,24 @@ export class VerComponent implements OnInit {
     })
 
     swalWithBootstrapButtons.fire({  
-      title: '¿Seguro que quiere eliminar el producto?',  
+      title: '¿Seguro que quiere eliminar el album?',  
       icon: 'warning',  
       showCancelButton: true,  
       confirmButtonText: '¡Si, eliminar!',  
       cancelButtonText: 'Cancelar'  
     }).then((result) => {
       if(result.value) {
-        this.cancionesService.buscarCancion( id )
+        this.cancionesService.deleteCancion( id )
         .subscribe( cancion => {
-          if(cancion){
             Swal.fire({
               icon: 'success',
               title: '¡Eliminado con exito!',
               showConfirmButton: false,
               timer: 1500
             })
-          }
         })
         this.canciones.splice(position, 1)
       }
-      //Recargar
-      if(this.getCanciones){
-        this.getCanciones.unsubscribe();
-      }
-      this.getCanciones = this.cancionesService.getCanciones()
-      .subscribe( (resp) => {})
     })
   }
-
 }

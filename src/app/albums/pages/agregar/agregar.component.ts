@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, switchMap } from 'rxjs';
-import { Cantante } from 'src/app/interfaces/cantante.interface';
-import { Genero } from 'src/app/interfaces/genero.interface';
-import { CantantesServices } from 'src/app/services/cantantes.service';
-import { GenerosServices } from 'src/app/services/generos.service';
-import { CancionesServices } from '../../../services/canciones.service';
+import { AlbumsServices } from '../../../services/albums.service';
+import { Album } from '../../../interfaces/album.interface';
 
 @Component({
   selector: 'app-agregar',
@@ -18,16 +15,15 @@ export class AgregarComponent implements OnInit {
   //Formulario reactivo para almacenar la informacion
   //El primer campo esta vacio, se puede usar para asignar un valor por defecto al input
   formulario: FormGroup = this.fb.group({
-    _id: [],
     id: [],
     name: [, Validators.required],
-    spotifyId: [, Validators.required], 
-    //Arreglo para valores de un formulario, es un tipo especial de array
   })
+
+  albums: Album[] = [];
 
   //Se inyecta el servicio para construir formularios
   constructor( private fb:    FormBuilder,
-               private cancionesService: CancionesServices,
+               private albumService: AlbumsServices,
                private route: ActivatedRoute,
                private router: Router ) { }
 
@@ -41,20 +37,15 @@ export class AgregarComponent implements OnInit {
               return EMPTY;
             }
             //Buscar cancion por id y retornarla
-            return this.cancionesService.buscarCancion(id);  
+            return this.albumService.getAlbumById(id);  
         })
       )
-      .subscribe( cancion => 
+      .subscribe( album => 
         {
-          console.log(cancion)
           this.formulario.reset({
-            id: cancion.id,
-            name: cancion.name,
-            spotifyId: cancion.spotifyId,
-            generos: cancion.generos,
-            cantantes: cancion.cantantes
-          })
-
+            id: album.id,
+            name: album.name
+          }) 
         }
       );
   }
@@ -80,10 +71,9 @@ export class AgregarComponent implements OnInit {
     }
     if( this.formulario.controls['id'].value != null ){
       //Si el formulario tienen un valor de id quiere decir que queremos actualizar, sino insertar
-      this.cancionesService.updateCancion(this.formulario.value).subscribe( resp => this.router.navigate(['canciones/ver']) )
+      this.albumService.updateAlbum(this.formulario.value).subscribe( resp => this.router.navigate(['albums/ver']) )
     }else{
-      this.cancionesService.postCancion(this.formulario.value).subscribe( resp => this.router.navigate(['canciones/ver']) )
+      this.albumService.postAlbum(this.formulario.value).subscribe( resp => this.router.navigate(['albums/ver']) )
     }
   }
-
 }

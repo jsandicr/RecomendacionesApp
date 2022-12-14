@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CantantesServices {
 
-  private _baseUrl: string = "http://localhost:3000/cantantes";
+  private _baseUrl: string = "http://localhost:3000/cantante";
   private _canciones: Cantante[] = [];
 
   constructor( private http: HttpClient ) { }

@@ -8,7 +8,7 @@ import { Cancion } from '../interfaces/cancion.interface';
 })
 export class CancionesServices {
 
-  private _baseUrl: string = "http://localhost:3000";
+  private _baseUrl: string = "http://localhost:3000/cancion";
   private _canciones: Cancion[] = [];
 
   constructor( private http: HttpClient) { }
@@ -18,19 +18,27 @@ export class CancionesServices {
   }
 
   getCanciones(){
-    return this.http.get<Cancion[]>(`${this._baseUrl}/canciones`)
+    return this.http.get<Cancion[]>(`${this._baseUrl}`)
+  }
+
+  postCancion( cancion: Cancion ){
+    return this.http.post<Cancion>(this._baseUrl, cancion);
+  }
+
+  updateCancion( cancion: Cancion ){
+    return this.http.put<Cancion>(`${this._baseUrl}/${cancion.id}`, cancion);
   }
 
   buscarCancion( id: number ): Observable<Cancion>{
-    return this.http.get<Cancion>(`${this._baseUrl}/canciones/${id}`)
+    return this.http.get<Cancion>(`${this._baseUrl}/${id}`)
   }
 
   sugerenciasCancion( termino: string ):Observable<Cancion[]>{
       //Solamente retorna id y nombre
-      return this.http.get<Cancion[]>(`${this._baseUrl}/buscar/${termino}`)
+      return this.http.get<Cancion[]>(`${this._baseUrl}/buscador/${termino}`)
   }
 
-  deleteCancion( id: string ): Observable<any>{
+  deleteCancion( id: number ): Observable<any>{
     return this.http.delete(`${ this._baseUrl }/${ id }`)
   }
 }

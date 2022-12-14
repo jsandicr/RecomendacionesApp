@@ -48,6 +48,14 @@ export class SidebarComponent{
     {
       nombre: 'generos',
       ruta: 'generos/ver'
+    },
+    {
+      nombre: 'playlists',
+      ruta: 'playlists/ver'
+    },
+    {
+      nombre: 'albums',
+      ruta: 'albums/ver'
     }
   ];
 }

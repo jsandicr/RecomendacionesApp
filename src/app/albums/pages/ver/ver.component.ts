@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CantantesServices } from '../../../services/cantantes.service';
-import { Cantante } from '../../../interfaces/cantante.interface';
+import { AlbumsServices } from '../../../services/albums.service';
+import { Album } from '../../../interfaces/album.interface';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,17 +10,17 @@ import Swal from 'sweetalert2';
 })
 export class VerComponent implements OnInit {
 
-  cantantes : Cantante[] = [];
+  albums : Album[] = [];
 
-  constructor( private cantanteService: CantantesServices) { }
+  constructor( private albumService: AlbumsServices) { }
 
   ngOnInit(): void {
-    this.cantanteService.getCantantes()
-      .subscribe( cantantes => {
-        cantantes.forEach(cantante => {
-          this.cantantes.push(cantante);
+    this.albumService.getAlbums()
+      .subscribe( albums => {
+        albums.forEach(album => {
+          this.albums.push(album);
         });
-        this.cantantes = cantantes
+        this.albums = albums
       });
   }
 
@@ -34,15 +34,15 @@ export class VerComponent implements OnInit {
     })
 
     swalWithBootstrapButtons.fire({  
-      title: '¿Seguro que quiere eliminar el producto?',  
+      title: '¿Seguro que quiere eliminar el album?',  
       icon: 'warning',  
       showCancelButton: true,  
       confirmButtonText: '¡Si, eliminar!',  
       cancelButtonText: 'Cancelar'  
     }).then((result) => {
       if(result.value) {
-        this.cantanteService.deleteCantante( id )
-        .subscribe( respuesta => {
+        this.albumService.deleteAlbum( id )
+        .subscribe( album => {
             Swal.fire({
               icon: 'success',
               title: '¡Eliminado con exito!',
@@ -50,8 +50,8 @@ export class VerComponent implements OnInit {
               timer: 1500
             })
         })
+        this.albums.splice(position, 1)
       }
-      this.cantantes.splice(position, 1)
     })
   }
 }

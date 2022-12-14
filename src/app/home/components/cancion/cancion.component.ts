@@ -13,14 +13,14 @@ export class CancionComponent implements OnInit {
   cancion!: Cancion;
 
   youtubeRedirect: string = "https://www.youtube.com/results?search_query="
-  spotifyRedirect: string = "https://open.spotify.com/artist/"
+  spotifyRedirect: string = "https://open.spotify.com/track/"
 
   constructor() { }
 
   ngOnInit(): void {
-    this.youtubeRedirect += this.cancion.name+"+"+this.cancion.singers;
+    this.youtubeRedirect += this.cancion.name;
     this.spotifyRedirect += this.cancion.spotifyId
-    console.log(this.spotifyRedirect)
+    console.log(this.cancion)
   }
 
 }

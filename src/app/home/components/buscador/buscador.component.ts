@@ -30,7 +30,6 @@ export class BuscadorComponent implements OnInit {
 
   pressKey( ){
     this.debouncer.next(this.termino);
-    console.log(this.termino);
   }
 
   onFocusOut(){

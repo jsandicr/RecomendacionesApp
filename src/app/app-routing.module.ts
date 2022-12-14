@@ -23,6 +23,16 @@ const routes: Routes = [
       .then(m => m.CantantesModule)
   },
   {
+    path: 'playlists',
+    loadChildren: () => import('./playlists/playlists.module')
+      .then(m => m.PlaylistsModule)
+  },
+  {
+    path: 'albums',
+    loadChildren: () => import('./albums/albums.module')
+      .then(m => m.AlbumsModule)
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }
